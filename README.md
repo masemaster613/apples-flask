@@ -1,0 +1,1 @@
+Making a web app for playing the classic card game Apples to Apples. It currently works well through all the stages, but does not handle errors well, such as someone signing in late or the game ending. 
