@@ -1,0 +1,16 @@
+{%extends "game.html"%}
+{%block content%}
+<div class="container-fluid">
+	{%if apples.winner%}
+	<div class='alert alert-primary'>the winner is {{apples.winner}}</div>
+	{%if current_user == players[apples.judge - 1]%}
+	<form class='form-group' method='POST' action=''>
+       	{{form.hidden_tag()}}
+       	<div>
+       	  {{form.submit(class='btn btn-outline-primary')}}
+		</div>
+    </form>
+    {%endif%}
+	{%endif%}
+</div>
+{%endblock%}

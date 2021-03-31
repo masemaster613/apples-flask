@@ -1,0 +1,20 @@
+{%extends "game.html"%}
+{%block content%}
+<div id='turn' class='container'>
+	<div class='alert alert-primary'>You are the judge</div>
+	{%if not apples.winner%}
+	<form method='POST' action=''>
+		{{form.hidden_tag()}}
+		<fieldset>
+			<legend>Which is the best</legend>
+			<div>
+				{{form.cards}}
+			</div>
+		</fieldset>
+		<div>
+			{{form.submit(class="btn btn-outline-info")}}
+		</div>
+	</form>
+	{%endif%}
+</div>
+{%endblock%}

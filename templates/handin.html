@@ -1,0 +1,17 @@
+{%extends "game.html"%}
+{%block content%}
+<div class="container-fluid">
+<form method='POST' action=''>
+	{{form.hidden_tag()}}
+	<fieldset>
+		<legend>What do you hand in</legend>
+		<div>
+			{{form.cards}}
+		</div>
+	</fieldset>
+	<div>
+		{{form.submit(class="btn btn-outline-info")}}
+	</div>
+</form>
+</div>
+{%endblock%}
