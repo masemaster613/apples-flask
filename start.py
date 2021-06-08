@@ -5,7 +5,7 @@ from wtforms import StringField, SubmitField, RadioField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy
 from apples import Game
-import os
+import os, random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1faf50e934b6df68fdc808d2fbad63ba'
@@ -63,8 +63,8 @@ class JudgeForm(FlaskForm):
 	submit = SubmitField('Reveal')
 
 class RestartForm(FlaskForm):
-	submit = SubmitField('Restart Game')
-
+	restart = SubmitField('Restart Game')
+	join = SubmitField('Join Game')
 
 
 
@@ -107,12 +107,18 @@ def game_started():
 	global apples
 	global submission
 	form = RestartForm()
-	if form.validate_on_submit():
+	if form.validate_on_submit() and form.restart.data:
 		apples = Game()
 		players = []
 		submission = []
 		print(apples.is_started)
 		return redirect(url_for('welcome'))
+	if form.validate_on_submit() and form.join.data:
+		apples.hands[current_user.name] = []
+		for i in range(5):
+			apples.hands[current_user.name].append(apples.red_cards.pop(random.randint(0,len(apples.red_cards)-1)))
+		print(apples.hands)
+		return redirect(url_for('waiting'))
 	return render_template('game_started.html', form=form)
 
 @app.route("/sessions", methods=['GET', 'POST'])
