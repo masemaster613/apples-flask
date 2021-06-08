@@ -35,8 +35,7 @@
 			<br>
 			{%block content%}{%endblock%}
 		</div>
-		<div class='col-3' style="outline-color: blue;">
-			<h1>Scoreboard</h1>
+		<div class='col-3'>
 			{%for player in players%}
 			<p>{{player.name}}: {{player.score}}</p>
 			{%endfor%}

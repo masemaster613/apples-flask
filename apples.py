@@ -10,9 +10,9 @@ class Game():
 	winner = ''
 
 	def start(self, players):
-		with open('green_cards_jr.json', 'r') as f:
+		with open('/home/waltner_mason/a2a_flask/green_cards_jr.json', 'r') as f:
 			self.green_cards = json.load(f)
-		with open('red_cards_jr.json', 'r') as f:
+		with open('/home/waltner_mason/a2a_flask/red_cards_jr.json', 'r') as f:
 			self.red_cards = json.load(f)
 		#deal out cards
 		self.hands = {}
