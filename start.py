@@ -43,7 +43,7 @@ class User(db.Model, UserMixin):
 		return f"User('{self.name}')"
 
 
-#forms
+#forms that are used to make all buttons and submissions
 class WelcomeForm(FlaskForm):
 	name = StringField('Name', validators=[DataRequired()])
 	submit = SubmitField('Enter')
@@ -62,6 +62,9 @@ class JudgeForm(FlaskForm):
 	cards = RadioField('Which do you choose', choices=[])
 	submit = SubmitField('Reveal')
 
+class RestartForm(FlaskForm):
+	submit = SubmitField('Restart Game')
+
 
 
 
@@ -69,7 +72,7 @@ class JudgeForm(FlaskForm):
 @app.route('/')
 def go_to_welcome():
 	return redirect(url_for('welcome'))
-
+#welcome page where players put in their names
 @app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
 	form = WelcomeForm()
@@ -79,6 +82,7 @@ def welcome():
 		pass
 	logout_user()
 	if form.validate_on_submit():
+		print(apples.is_started)
 		user = User.query.filter_by(name=form.name.data).first()
 		if user:
 			if user not in players:
@@ -99,7 +103,14 @@ def welcome():
 @app.route("/game_started", methods=['GET', 'POST'])
 @login_required
 def game_started():
-	return render_template('game_started.html')
+	form = RestartForm()
+	if form.validate_on_submit():
+		apples = Game()
+		players = []
+		submission = []
+		print(apples.is_started)
+		return redirect(url_for('welcome'))
+	return render_template('game_started.html', form=form)
 
 @app.route("/sessions", methods=['GET', 'POST'])
 @login_required
@@ -162,4 +173,4 @@ def handin():
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0',debug=True)
+	app.run(port=8080,host='0.0.0.0',debug=True)
