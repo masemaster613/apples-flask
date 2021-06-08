@@ -38,3 +38,5 @@ class Game():
 		self.submission={}
 		self.judge += 1
 		self.green_card = self.green_cards.pop(random.randint(0,len(self.green_cards)-1))
+	def restart(self):
+		self = Game()

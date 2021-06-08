@@ -103,6 +103,9 @@ def welcome():
 @app.route("/game_started", methods=['GET', 'POST'])
 @login_required
 def game_started():
+	global players
+	global apples
+	global submission
 	form = RestartForm()
 	if form.validate_on_submit():
 		apples = Game()
